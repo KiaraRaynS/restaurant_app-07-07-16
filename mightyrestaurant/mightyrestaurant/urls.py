@@ -14,10 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
+from django.contrib.auth.views import login, logout
 from django.contrib import admin
-from appmightyrestaurant.views import IndexView
+from appmightyrestaurant.views import IndexView, RegisterView, ProfileView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', IndexView.as_view(), name='indexview')
+    url(r'^$', IndexView.as_view(), name='indexview'),
+    # User related URLS
+    url(r'^register/$', RegisterView.as_view(), name='registerview'),
+    url(r'^accounts/profile/$', ProfileView.as_view(), name='profileview'),
+    url(r'^logout/$', logout, name='logout'),
+    url(r'^login/$', login, name='login'),
 ]
