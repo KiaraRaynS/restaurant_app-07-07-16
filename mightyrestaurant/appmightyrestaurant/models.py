@@ -23,6 +23,7 @@ class MenuItem(models.Model):
 class Order(models.Model):
     customer = models.CharField(max_length=50)
     orderitem = models.ForeignKey(MenuItem)
+    notes = models.TextField(null=True, blank=True)
     server = models.ForeignKey(Worker)
     foodstatus = models.BooleanField(default=False)
     paidstatus = models.BooleanField(default=False)
