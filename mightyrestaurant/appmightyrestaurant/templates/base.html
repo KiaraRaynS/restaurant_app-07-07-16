@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <title>Fishrooms</title>
   <link rel='stylesheet' href='{% static 'appmightyrestaurant/css/bootstrap.css' %}'>
+  <link rel='stylesheet' href='{% static 'appmightyrestaurant/owncss.css' %}'>
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -12,10 +13,10 @@
   <!-- If Logged In -->
   {% if request.user.is_authenticated %}
   <a href="{% url 'profileview' %}">Profile</a>
-  <a href="{% url 'logout' %}">Logout</a>
+  <a href="{% url 'logout' %}?next=/">Logout</a>
   <!-- If Not Logged In -->
   {% else %}
-  <a href="{% url 'login' %}">Login</a>
+  <a href="{% url 'login' %}?next=/">Login</a>
   <a href="{% url 'registerview' %}">Register</a>
   {% endif %}
   </nav>

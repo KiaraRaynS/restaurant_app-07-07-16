@@ -13,7 +13,7 @@ class IndexView(TemplateView):
 class RegisterView(CreateView):
     model = User
     form_class = UserCreationForm
-    success_url = '/accounts/profile/'
+    success_url = '/'
 
 
 class ProfileView(UpdateView):

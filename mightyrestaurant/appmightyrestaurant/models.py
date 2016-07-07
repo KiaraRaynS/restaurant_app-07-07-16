@@ -11,8 +11,8 @@ typechoices = (
 
 class Worker(models.Model):
     user = models.OneToOneField('auth.user')
-    name = models.CharField(max_length=40)
-    workertype = models.CharField(max_length=10, choices=typechoices)
+    name = models.CharField(max_length=40, null=True, blank=True)
+    workertype = models.CharField(max_length=10, choices=typechoices, null=True, blank=True)
     hirement = models.DateTimeField(auto_now_add=True)
 
 
