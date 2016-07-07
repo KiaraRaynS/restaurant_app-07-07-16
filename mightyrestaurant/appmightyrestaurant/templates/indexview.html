@@ -2,4 +2,18 @@
 {% block bodycontent %}
   <h2 id='indexhead'>Welcome</h2>
   <hr>
+  {% if worker.workertype == 'owner' %}
+    {% for item in items %}
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <strong>{{ item.title }}</strong>
+        </div>
+        <div class="panel-footer"><p>{{ item.description}}</p>
+          <p>Category: {{item.foodtype}}</p>
+          <p>Price: {{item.price}}$</p>
+          <p><a href="{% url 'updatemenuitemview' item.id %}" class='btn btn-success'>Update</a></p>
+        </div>
+        </div>
+    {% endfor %}
+  {% endif %}
 {% endblock %}

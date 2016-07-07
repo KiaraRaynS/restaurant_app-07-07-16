@@ -9,6 +9,18 @@ from django.core.urlresolvers import reverse_lazy
 class IndexView(TemplateView):
     template_name = 'indexview.html'
 
+    def get_context_data(self, **kwargs):
+        user = self.request.user
+        print(user)
+        if user.is_authenticated():
+            worker = Worker.objects.get(user=user)
+            if worker.workertype == 'owner':
+                context = {
+                        'worker': worker,
+                        'items': MenuItem.objects.all(),
+                        }
+                return context
+
 
 class RegisterView(CreateView):
     model = User
@@ -27,3 +39,14 @@ class ProfileView(UpdateView):
         user = self.request.user
         instance = Worker.objects.get(user=user)
         return instance
+
+
+class UpdateMenuItemView(UpdateView):
+    model = MenuItem
+    fields = ['title', 'foodtype', 'description', 'price']
+    success_url = '/'
+
+    def get_object(self, queryset=None):
+        menuitemid = self.kwargs['pk']
+        menuitem = MenuItem.objects.get(id=menuitemid)
+        return menuitem
