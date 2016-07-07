@@ -23,4 +23,7 @@ class ProfileView(UpdateView):
     success_url = reverse_lazy('profileview')
 
     def get_object(self, queryset=None):
-        return self.request.user
+        print(self.request.user)
+        user = self.request.user
+        instance = Worker.objects.get(user=user)
+        return instance
