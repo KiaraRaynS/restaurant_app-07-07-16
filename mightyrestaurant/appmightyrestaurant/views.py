@@ -98,6 +98,7 @@ class UpdateFoodTypeView(UpdateView):
 
 
 class DeleteMenuItemView(DeleteView):
+    success_url = '/'
 
     def get_object(self):
         menuitem = MenuItem.objects.get(id=self.kwargs['pk'])
