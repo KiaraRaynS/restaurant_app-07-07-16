@@ -13,6 +13,7 @@
   <!-- If Logged In -->
   {% if request.user.is_authenticated %}
   <ul class='nav navbar-nav'>
+    <li> <div class='navbar-text'><p class='label label-default'> Welcome {{ user }}</p></div></li>
     <li><a class='navbar-nav' href="{% url 'profileview' %}">Profile</a></li>
     <div style="position: absolute; right: 0"><a class='btn btn-danger' href="{% url 'logout' %}?next=/">Logout</a></div>
   </ul>

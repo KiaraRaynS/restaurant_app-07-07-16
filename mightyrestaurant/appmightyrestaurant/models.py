@@ -18,6 +18,7 @@ class Worker(models.Model):
 
 class FoodType(models.Model):
     category = models.CharField(max_length=50)
+    ordernumber = models.IntegerField()
 
     def __str__(self):
         return str(self.category)

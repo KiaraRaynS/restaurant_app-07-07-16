@@ -4,7 +4,7 @@ from django.contrib import admin
 from appmightyrestaurant.views import IndexView, RegisterView, ProfileView
 from appmightyrestaurant.views import UpdateMenuItemView
 # Owner related Views
-from appmightyrestaurant.views import CreateMenuItemView, CreateFoodTypeView, UpdateFoodTypeView
+from appmightyrestaurant.views import CreateMenuItemView, DeleteMenuItemView, UpdateFoodTypeView, CreateFoodTypeView
 
 
 urlpatterns = [
@@ -18,6 +18,7 @@ urlpatterns = [
     # Owner actions
     url(r'^newmenuitem/(?P<pk>\d+)$', CreateMenuItemView.as_view(), name='createmenuitemview'),
     url(r'^updatemenu/(?P<pk>\d+)/$', UpdateMenuItemView.as_view(), name='updatemenuitemview'),
+    url(r'^deletemenuitem/(?P<pk>\d+)/$', DeleteMenuItemView.as_view(), name='deletemenuitemview'),
     url(r'^newcategory/$', CreateFoodTypeView.as_view(), name='createfoodtypeview'),
     url(r'^updatefoodtype/(?P<pk>\d+)/$', UpdateFoodTypeView.as_view(), name='updatefoodtypeview'),
 ]

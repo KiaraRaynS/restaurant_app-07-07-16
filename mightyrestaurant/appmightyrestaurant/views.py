@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, UpdateView
+from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from appmightyrestaurant.models import Worker, MenuItem, Order, FoodType
@@ -19,7 +19,7 @@ class IndexView(TemplateView):
             if worker.workertype == 'owner':
                 context = {
                         'worker': worker,
-                        'foodtypes': FoodType.objects.all(),
+                        'foodtypes': FoodType.objects.all().order_by('ordernumber'),
                         'items': MenuItem.objects.all(),
                         }
                 return context
@@ -93,3 +93,10 @@ class UpdateFoodTypeView(UpdateView):
     template_name = 'updatefoodtypeview.html'
     fields = ['category']
     success_url = '/'
+
+
+class DeleteMenuItemView(DeleteView):
+
+    def get_object(self):
+        menuitem = MenuItem.objects.get(id=self.kwargs['pk'])
+        return menuitem
