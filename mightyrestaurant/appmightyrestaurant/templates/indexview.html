@@ -48,11 +48,14 @@
           <p>{{order.notes}}</p>
           {% if order.foodstatus %}
             <p class='label label-success'>Cooked</p>
+            <!-- When pressed will set orderstatus=False and add revision notes-->
+            <input class='btn btn-default' type='submit' value='Revision needed'>
             <!-- Needs to be wired up so pressing it will set paidstatus=True -->
             <hr>
             <p>Total: ${{order.orderitem.price}}</p>
             <p><input class='btn btn-primary' type='submit' value='Paid'></p>
           {% else %}
+            <p>Current Total: ${{order.orderitem.price}}</p>
             <p class='label label-danger'>Not Cooked</p>
           {% endif %}
         </div>

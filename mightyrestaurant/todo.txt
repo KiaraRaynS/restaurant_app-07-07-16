@@ -1,0 +1,19 @@
+- Make CreateViews for both Owner and Server
+- Make a new model table called Table
+    * new table id is generated when taking new order so all new orders will be that table
+    * A server can go back to a table and edit it to add or delete orders
+    * Orders will have a foreign key to table
+    * table total is calculated by adding together all the orders costs
+    * Instead of being filtered by paid or not tables are filtered by being marked as finished
+        [so one may order another item after they pay and realize they want more]
+
+- For Owner:
+    * Edit index view so instead of getting a list of all menu items its a list of categories
+    * Clicking a category will bring a list of all menu items withing that category
+
+- For Server:
+    * Edit index view to be a list of current tables instead of current orders
+        - Each table will have a small list of orders related to table and cook status
+            ex: [pizza (cooked)]
+        - Clicking on a table will give a detailed view of orders, pay option, and finish button
+
