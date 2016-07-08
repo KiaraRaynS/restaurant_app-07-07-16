@@ -43,7 +43,7 @@
 
   <!-- If Server -->
   {% if worker.workertype == 'server' %}
-  <a class='btn btn-default' href="">Seat Customers</a>
+  <a class='btn btn-default' href="{% url 'seatcustomersview' %}">Seat Customers</a>
     {% for order in orders %}
       <div class="panel panel-default">
         <div class="panel-body">

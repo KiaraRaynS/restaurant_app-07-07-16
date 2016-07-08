@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from appmightyrestaurant.models import Worker, MenuItem, Order, FoodType
+from appmightyrestaurant.models import Worker, MenuItem, Order, FoodType, CustomerTable
 from django.core.urlresolvers import reverse_lazy
 
 
@@ -100,3 +100,10 @@ class DeleteMenuItemView(DeleteView):
     def get_object(self):
         menuitem = MenuItem.objects.get(id=self.kwargs['pk'])
         return menuitem
+
+
+# Server Related Views
+class SeatCustomersView(CreateView):
+    model = CustomerTable
+    fields = ['partyname']
+    success_url = '/'

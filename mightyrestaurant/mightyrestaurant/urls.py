@@ -5,6 +5,8 @@ from appmightyrestaurant.views import IndexView, RegisterView, ProfileView
 from appmightyrestaurant.views import UpdateMenuItemView
 # Owner related Views
 from appmightyrestaurant.views import CreateMenuItemView, DeleteMenuItemView, UpdateFoodTypeView, CreateFoodTypeView
+# Server Actions
+from appmightyrestaurant.views import SeatCustomersView
 
 
 urlpatterns = [
@@ -15,10 +17,12 @@ urlpatterns = [
     url(r'^accounts/profile/$', ProfileView.as_view(), name='profileview'),
     url(r'^logout/$', logout, name='logout'),
     url(r'^login/$', login, name='login'),
-    # Owner actions
+    # Owner Actions
     url(r'^newmenuitem/(?P<pk>\d+)$', CreateMenuItemView.as_view(), name='createmenuitemview'),
     url(r'^updatemenu/(?P<pk>\d+)/$', UpdateMenuItemView.as_view(), name='updatemenuitemview'),
     url(r'^deletemenuitem/(?P<pk>\d+)/$', DeleteMenuItemView.as_view(), name='deletemenuitemview'),
     url(r'^newcategory/$', CreateFoodTypeView.as_view(), name='createfoodtypeview'),
     url(r'^updatefoodtype/(?P<pk>\d+)/$', UpdateFoodTypeView.as_view(), name='updatefoodtypeview'),
+    # Server Actions
+    url(r'^customertable/$', SeatCustomersView.as_view(), name='seatcustomersview'),
 ]
