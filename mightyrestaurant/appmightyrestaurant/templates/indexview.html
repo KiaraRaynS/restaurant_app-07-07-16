@@ -43,28 +43,31 @@
 
   <!-- If Server -->
   {% if worker.workertype == 'server' %}
-  <a class='btn btn-default' href="{% url 'seatcustomersview' %}">Seat Customers</a>
-    {% for order in orders %}
+  <p><a class='btn btn-default' href="{% url 'seatcustomersview' %}">Seat Customers</a></p>
+  <br>
+    {% for table in tables %}
       <div class="panel panel-default">
         <div class="panel-body">
-          <h3><strong>{{order.orderitem}}</strong></h3>
+          <h3><strong>{{table.partyname}}</strong></h3><a href="{% url 'takecustomerorderview' table.id %}" class='btn btn-default'>Take Orders</a>
         </div>
         <div class="panel-footer">
-          <p><b>Customer:</b> {{order.customer}}</p>
-          <p><b>Notes:</b></p>
-          <p>{{order.notes}}</p>
-          {% if order.foodstatus %}
-            <p class='label label-success'>Cooked</p>
-            <!-- When pressed will set orderstatus=False and add revision notes-->
-            <input class='btn btn-default' type='submit' value='Revision needed'>
-            <!-- Needs to be wired up so pressing it will set paidstatus=True -->
-            <hr>
-            <p>Total: ${{order.orderitem.price}}</p>
-            <p><input class='btn btn-primary' type='submit' value='Paid'></p>
-          {% else %}
-            <p>Current Total: ${{order.orderitem.price}}</p>
-            <p class='label label-danger'>Not Cooked</p>
+          {% for order in orders %}
+          {% if order.tableid == table %}
+            <b><p>Orders</p></b>
+            Customer: {{order.customer}} | {{order.orderitem}} |
+            {% if order.foodstatus %}
+              <div class='label label-success'>Cooked</div>
+              <!-- When pressed will set orderstatus=False and add revision notes-->
+              <input class='btn btn-default' type='submit' value='Revision needed'>
+              <!-- Needs to be wired up so pressing it will set paidstatus=True -->
+              <hr>
+
+              <p><input class='btn btn-primary' type='submit' value='Paid'></p>
+            {% else %}
+              <div class='label label-danger'>Not Cooked</div>
+            {% endif %}
           {% endif %}
+          {% endfor %}
         </div>
       </div>
     {% endfor %}

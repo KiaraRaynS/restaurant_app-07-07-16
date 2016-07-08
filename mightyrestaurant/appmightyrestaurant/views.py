@@ -34,6 +34,7 @@ class IndexView(TemplateView):
             if worker.workertype == 'server':
                 context = {
                         'worker': worker,
+                        'tables': CustomerTable.objects.all(),
                         'orders': Order.objects.filter(server=worker).filter(paidstatus=False),
                         }
                 return context
@@ -107,3 +108,14 @@ class SeatCustomersView(CreateView):
     model = CustomerTable
     fields = ['partyname']
     success_url = '/'
+
+
+class TakeCustomerOrderView(CreateView):
+    model = Order
+    fields = ['customer', 'orderitem', 'notes']
+    success_url = '/'
+
+    def form_valid(self, form):
+        form.instance.tableid = CustomerTable.objects.get(id=self.kwargs['pk'])
+        form.instance.server = Worker.objects.get(user=self.request.user)
+        return super(TakeCustomerOrderView, self).form_valid(form)
