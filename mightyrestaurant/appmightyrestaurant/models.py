@@ -33,7 +33,12 @@ class MenuItem(models.Model):
         return str(self.title)
 
 
+class CustomerTable(models.Model):
+    partyname = models.CharField(max_length=50)
+
+
 class Order(models.Model):
+    tableid = models.ForeignKey(CustomerTable)
     customer = models.CharField(max_length=50)
     orderitem = models.ForeignKey(MenuItem)
     notes = models.TextField(null=True, blank=True)

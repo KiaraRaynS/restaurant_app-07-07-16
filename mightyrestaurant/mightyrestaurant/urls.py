@@ -16,7 +16,7 @@ urlpatterns = [
     url(r'^logout/$', logout, name='logout'),
     url(r'^login/$', login, name='login'),
     # Owner actions
-    url(r'^newmenuitem/$', CreateMenuItemView.as_view(), name='createmenuitemview'),
+    url(r'^newmenuitem/(?P<pk>\d+)$', CreateMenuItemView.as_view(), name='createmenuitemview'),
     url(r'^updatemenu/(?P<pk>\d+)/$', UpdateMenuItemView.as_view(), name='updatemenuitemview'),
     url(r'^newcategory/$', CreateFoodTypeView.as_view(), name='createfoodtypeview'),
     url(r'^updatefoodtype/(?P<pk>\d+)/$', UpdateFoodTypeView.as_view(), name='updatefoodtypeview'),

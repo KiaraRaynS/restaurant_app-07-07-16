@@ -73,8 +73,12 @@ class UpdateMenuItemView(UpdateView):
 class CreateMenuItemView(CreateView):
     model = MenuItem
     template_name = 'createmenuitemview.html'
-    fields = ['title', 'foodtype', 'description', 'price']
-    success_url = reverse_lazy('createmenuitemview')
+    fields = ['title', 'description', 'price']
+
+    def form_valid(self, form):
+        form.instance.foodtype = FoodType.objects.get(id=self.kwargs['pk'])
+        return super(CreateMenuItemView, self).form_valid(form)
+    success_url = '/'
 
 
 class CreateFoodTypeView(CreateView):

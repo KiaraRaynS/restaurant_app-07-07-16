@@ -9,15 +9,19 @@
 </head>
 <body>
 <nav class="navbar navbar-inverse">
-  <p><a href="{% url 'indexview' %}" class='navbar-brand'>Home</a></p>
+  <a href="{% url 'indexview' %}" class='navbar-brand'>Home</a>
   <!-- If Logged In -->
   {% if request.user.is_authenticated %}
-  <a href="{% url 'profileview' %}">Profile</a>
-  <a href="{% url 'logout' %}?next=/">Logout</a>
+  <ul class='nav navbar-nav'>
+    <li><a class='navbar-nav' href="{% url 'profileview' %}">Profile</a></li>
+    <div style="position: absolute; right: 0"><a class='btn btn-danger' href="{% url 'logout' %}?next=/">Logout</a></div>
+  </ul>
   <!-- If Not Logged In -->
   {% else %}
-  <a href="{% url 'login' %}?next=/">Login</a>
-  <a href="{% url 'registerview' %}">Register</a>
+  <ul class='nav navbar-nav'>
+    <li><a class='navbar-nav' href="{% url 'login' %}?next=/">Login</a></li>
+    <li><a class='navbar-nav' href="{% url 'registerview' %}">Register</a></li>
+  </ul>
   {% endif %}
   </nav>
 <div class='container'>

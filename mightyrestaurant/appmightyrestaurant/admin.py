@@ -1,5 +1,5 @@
 from django.contrib import admin
-from appmightyrestaurant.models import Worker, MenuItem, Order, FoodType
+from appmightyrestaurant.models import Worker, MenuItem, Order, FoodType, CustomerTable
 
 
 class WorkerAdmin(admin.ModelAdmin):
@@ -17,6 +17,11 @@ class MenuItemAdmin(admin.ModelAdmin):
 admin.site.register(MenuItem, MenuItemAdmin)
 
 
+class CustomerTableAdmin(admin.ModelAdmin):
+    list_display = ['partyname']
+admin.site.register(CustomerTable, CustomerTableAdmin)
+
+
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['customer', 'orderitem', 'foodstatus', 'paidstatus']
-admin.site.register(Order)
+    list_display = ['tableid', 'customer', 'orderitem', 'foodstatus', 'paidstatus']
+admin.site.register(Order, OrderAdmin)
