@@ -6,16 +6,19 @@
   <!-- If Owner -->
   {% if worker.workertype == 'owner' %}
     <a class='btn btn-default' href="{% url 'createmenuitemview' %}">New Item</a>
+    <a class='btn btn-default' href="{% url 'createfoodtypeview' %}">New Food Type</a>
     <hr>
     {% for item in foodtypes %}
     <div class="panel panel-default">
       <div class="panel-body">
-        <strong>{{ item }}</strong>
+        <strong>{{ item }}</strong> <a class='label label-info' href={% url 'updatefoodtypeview' item.id %}>Update</a>
         </div>
         <div class="panel-footer">
           {% for food in items %}
+          {% if food.foodtype == item %}
             <h4><p>{{ food.title }}</p></h4>
-            <p><a href="{% url 'updatemenuitemview' food.id %}" class='btn btn-success'>Update</a></p>
+            <a href="{% url 'updatemenuitemview' food.id %}" class='btn btn-success'>Update</a>
+          {% endif %}
           {% endfor %}
         </div>
         </div>

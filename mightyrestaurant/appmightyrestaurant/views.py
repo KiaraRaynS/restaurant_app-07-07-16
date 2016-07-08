@@ -17,11 +17,10 @@ class IndexView(TemplateView):
             print(worker.workertype)
             # If the user is an owner
             if worker.workertype == 'owner':
-                foodtype = FoodType.objects.all()
                 context = {
                         'worker': worker,
                         'foodtypes': FoodType.objects.all(),
-                        'items': MenuItem.objects.filter(foodtype=foodtype),
+                        'items': MenuItem.objects.all(),
                         }
                 return context
             # If the user is a cook
@@ -70,8 +69,23 @@ class UpdateMenuItemView(UpdateView):
         return menuitem
 
 
+# Owner related Views
 class CreateMenuItemView(CreateView):
     model = MenuItem
     template_name = 'createmenuitemview.html'
     fields = ['title', 'foodtype', 'description', 'price']
     success_url = reverse_lazy('createmenuitemview')
+
+
+class CreateFoodTypeView(CreateView):
+    model = FoodType
+    template_name = 'createfoodtypeview.html'
+    fields = ['category']
+    success_url = '/'
+
+
+class UpdateFoodTypeView(UpdateView):
+    model = FoodType
+    template_name = 'updatefoodtypeview.html'
+    fields = ['category']
+    success_url = '/'
