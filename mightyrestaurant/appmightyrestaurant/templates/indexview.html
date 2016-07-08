@@ -28,7 +28,7 @@
       </div>
       <div class="panel-footer">
         <b><p>*{{order.notes}}</p></b>
-        <!-- Need to get this wired up so when hit the order will be submitted as finished-->
+        <!-- Needs to be wired up so pressing will set foodstatus=True -->
         <p><input class='btn btn-primary btn-lg' type='submit' value='Order Done'></p>
       </div>
     </div>
@@ -47,9 +47,13 @@
           <p><b>Notes:</b></p>
           <p>{{order.notes}}</p>
           {% if order.foodstatus %}
-            <p class='btn btn-success'>Cooked</p>
+            <p class='label label-success'>Cooked</p>
+            <!-- Needs to be wired up so pressing it will set paidstatus=True -->
+            <hr>
+            <p>Total: ${{order.orderitem.price}}</p>
+            <p><input class='btn btn-primary' type='submit' value='Paid'></p>
           {% else %}
-            <p class='btn btn-danger'>Not Cooked</p>
+            <p class='label label-danger'>Not Cooked</p>
           {% endif %}
         </div>
       </div>
