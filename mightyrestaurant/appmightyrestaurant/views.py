@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import Sum
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
@@ -119,3 +120,17 @@ class TakeCustomerOrderView(CreateView):
         form.instance.tableid = CustomerTable.objects.get(id=self.kwargs['pk'])
         form.instance.server = Worker.objects.get(user=self.request.user)
         return super(TakeCustomerOrderView, self).form_valid(form)
+
+
+class TableOrdersView(TemplateView):
+    template_name = 'tableordersview.html'
+
+    def get_context_data(self, **kwargs):
+        tableid = self.kwargs['pk']
+        customertable = CustomerTable.objects.get(id=tableid)
+        context = {
+                'table': customertable,
+                'orders': Order.objects.filter(tableid=customertable),
+                'total': Order.objects.filter(tableid=customertable).aggregate(Sum('orderitem__price')),
+                }
+        return context

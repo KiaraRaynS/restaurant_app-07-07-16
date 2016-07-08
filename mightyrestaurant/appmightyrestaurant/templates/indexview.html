@@ -48,17 +48,17 @@
     {% for table in tables %}
       <div class="panel panel-default">
         <div class="panel-body">
-          <h3><strong>{{table.partyname}}</strong></h3><a href="{% url 'takecustomerorderview' table.id %}" class='btn btn-default'>Take Orders</a>
+          <h3><strong><a href="{% url 'tableordersview' table.id %}">{{table.partyname}}</a></strong></h3><a href="{% url 'takecustomerorderview' table.id %}" class='btn btn-default'>Take Orders</a>
         </div>
         <div class="panel-footer">
+          <b><p>Orders</p></b>
           {% for order in orders %}
           {% if order.tableid == table %}
-            <b><p>Orders</p></b>
-            Customer: {{order.customer}} | {{order.orderitem}} |
+            <b>{{order.customer}}</b> | {{order.orderitem}} |
             {% if order.foodstatus %}
               <div class='label label-success'>Cooked</div>
               <!-- When pressed will set orderstatus=False and add revision notes-->
-              <input class='btn btn-default' type='submit' value='Revision needed'>
+              <p><input class='btn btn-default' type='submit' value='Revision needed'></p>
               <!-- Needs to be wired up so pressing it will set paidstatus=True -->
               <hr>
 
@@ -67,6 +67,7 @@
               <div class='label label-danger'>Not Cooked</div>
             {% endif %}
           {% endif %}
+          <br>
           {% endfor %}
         </div>
       </div>

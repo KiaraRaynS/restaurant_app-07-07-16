@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block bodycontent %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title"><strong>{{table.partyname}}</strong></h3>
+            </div>
+              <div class="panel-body">
+                {% for order in orders %}
+                <b>{{ order.customer }}</b> {{ order.orderitem }} | {{order.orderitem.price}} |
+                  {% if order.foodstatus %}
+                  <span class="label label-success">Served</span>
+                  {% else %}
+                  <span class="label label-warning">Not Served</span>
+                  {% endif %}
+                  <br>
+                {% endfor %}
+                <hr>
+                <strong>Total: </strong> ${{total.orderitem__price__sum}}
+                <input class='btn btn-primary' type='submit' value='Paid'>
+                      </div>
+                    </div>
+{% endblock %}

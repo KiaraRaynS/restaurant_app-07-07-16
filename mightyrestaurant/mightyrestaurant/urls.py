@@ -6,7 +6,7 @@ from appmightyrestaurant.views import UpdateMenuItemView
 # Owner related Views
 from appmightyrestaurant.views import CreateMenuItemView, DeleteMenuItemView, UpdateFoodTypeView, CreateFoodTypeView
 # Server Actions
-from appmightyrestaurant.views import SeatCustomersView, TakeCustomerOrderView
+from appmightyrestaurant.views import SeatCustomersView, TakeCustomerOrderView, TableOrdersView
 
 
 urlpatterns = [
@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^updatefoodtype/(?P<pk>\d+)/$', UpdateFoodTypeView.as_view(), name='updatefoodtypeview'),
     # Server Actions
     url(r'^customertable/$', SeatCustomersView.as_view(), name='seatcustomersview'),
-    url(r'^customertable/(?P<pk>\d+)/$', TakeCustomerOrderView.as_view(), name='takecustomerorderview'),
+    url(r'^customertable/(?P<pk>\d+)/takeorder/$', TakeCustomerOrderView.as_view(), name='takecustomerorderview'),
+    url(r'^customertable/(?P<pk>\d+)/$', TableOrdersView.as_view(), name='tableordersview'),
 ]
