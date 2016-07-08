@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block bodycontent %}
-  <h2 id='indexhead'>Welcome</h2>
+<h2 id='indexhead'>Welcome {{user}} | {{worker.workertype}}</h2>
   <hr>
+
+  <!-- If Owner -->
   {% if worker.workertype == 'owner' %}
     {% for item in items %}
     <div class="panel panel-default">
@@ -14,6 +16,43 @@
           <p><a href="{% url 'updatemenuitemview' item.id %}" class='btn btn-success'>Update</a></p>
         </div>
         </div>
+    {% endfor %}
+  {% endif %}
+
+  <!-- If Cook -->
+  {% if worker.workertype == 'cook' %}
+    {% for order in orders %}
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <h3><strong>{{order.orderitem}}</strong></h3>
+      </div>
+      <div class="panel-footer">
+        <b><p>*{{order.notes}}</p></b>
+        <!-- Need to get this wired up so when hit the order will be submitted as finished-->
+        <p><input class='btn btn-primary btn-lg' type='submit' value='Order Done'></p>
+      </div>
+    </div>
+    {% endfor %}
+  {% endif %}
+
+  <!-- If Server -->
+  {% if worker.workertype == 'server' %}
+    {% for order in orders %}
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h3><strong>{{order.orderitem}}</strong></h3>
+        </div>
+        <div class="panel-footer">
+          <p><b>Customer:</b> {{order.customer}}</p>
+          <p><b>Notes:</b></p>
+          <p>{{order.notes}}</p>
+          {% if order.foodstatus %}
+            <p class='btn btn-success'>Cooked</p>
+          {% else %}
+            <p class='btn btn-danger'>Not Cooked</p>
+          {% endif %}
+        </div>
+      </div>
     {% endfor %}
   {% endif %}
 {% endblock %}

@@ -14,10 +14,26 @@ class IndexView(TemplateView):
         print(user)
         if user.is_authenticated():
             worker = Worker.objects.get(user=user)
+            print(worker.workertype)
+            # If the user is an owner
             if worker.workertype == 'owner':
                 context = {
                         'worker': worker,
                         'items': MenuItem.objects.all(),
+                        }
+                return context
+            # If the user is a cook
+            if worker.workertype == 'cook':
+                context = {
+                        'worker': worker,
+                        'orders': Order.objects.filter(foodstatus=False),
+                        }
+                return context
+            # If the user is a server
+            if worker.workertype == 'server':
+                context = {
+                        'worker': worker,
+                        'orders': Order.objects.filter(server=worker).filter(paidstatus=False),
                         }
                 return context
 
@@ -32,7 +48,7 @@ class ProfileView(UpdateView):
     model = Worker
     fields = ['name', 'workertype']
     template_name = 'profileview.html'
-    success_url = reverse_lazy('profileview')
+    success_url = '/'
 
     def get_object(self, queryset=None):
         print(self.request.user)
