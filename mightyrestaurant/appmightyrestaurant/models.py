@@ -16,9 +16,16 @@ class Worker(models.Model):
     hirement = models.DateTimeField(auto_now_add=True)
 
 
+class FoodType(models.Model):
+    category = models.CharField(max_length=50)
+
+    def __str__(self):
+        return str(self.category)
+
+
 class MenuItem(models.Model):
     title = models.CharField(max_length=50)
-    foodtype = models.CharField(max_length=50)
+    foodtype = models.ForeignKey(FoodType)
     description = models.TextField()
     price = models.FloatField()
 

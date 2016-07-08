@@ -16,4 +16,3 @@
         - Each table will have a small list of orders related to table and cook status
             ex: [pizza (cooked)]
         - Clicking on a table will give a detailed view of orders, pay option, and finish button
-

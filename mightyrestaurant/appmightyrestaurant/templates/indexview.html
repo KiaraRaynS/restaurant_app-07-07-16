@@ -5,15 +5,18 @@
 
   <!-- If Owner -->
   {% if worker.workertype == 'owner' %}
-    {% for item in items %}
+    <a class='btn btn-default' href="{% url 'createmenuitemview' %}">New Item</a>
+    <hr>
+    {% for item in foodtypes %}
     <div class="panel panel-default">
       <div class="panel-body">
-        <strong>{{ item.title }}</strong>
+        <strong>{{ item }}</strong>
         </div>
-        <div class="panel-footer"><p>{{ item.description}}</p>
-          <p>Category: {{item.foodtype}}</p>
-          <p>Price: {{item.price}}$</p>
-          <p><a href="{% url 'updatemenuitemview' item.id %}" class='btn btn-success'>Update</a></p>
+        <div class="panel-footer">
+          {% for food in items %}
+            <h4><p>{{ food.title }}</p></h4>
+            <p><a href="{% url 'updatemenuitemview' food.id %}" class='btn btn-success'>Update</a></p>
+          {% endfor %}
         </div>
         </div>
     {% endfor %}

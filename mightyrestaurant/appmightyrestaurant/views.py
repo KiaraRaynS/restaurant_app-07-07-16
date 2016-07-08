@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView, UpdateView
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from appmightyrestaurant.models import Worker, MenuItem, Order
+from appmightyrestaurant.models import Worker, MenuItem, Order, FoodType
 from django.core.urlresolvers import reverse_lazy
 
 
@@ -17,9 +17,11 @@ class IndexView(TemplateView):
             print(worker.workertype)
             # If the user is an owner
             if worker.workertype == 'owner':
+                foodtype = FoodType.objects.all()
                 context = {
                         'worker': worker,
-                        'items': MenuItem.objects.all(),
+                        'foodtypes': FoodType.objects.all(),
+                        'items': MenuItem.objects.filter(foodtype=foodtype),
                         }
                 return context
             # If the user is a cook
@@ -66,3 +68,10 @@ class UpdateMenuItemView(UpdateView):
         menuitemid = self.kwargs['pk']
         menuitem = MenuItem.objects.get(id=menuitemid)
         return menuitem
+
+
+class CreateMenuItemView(CreateView):
+    model = MenuItem
+    template_name = 'createmenuitemview.html'
+    fields = ['title', 'foodtype', 'description', 'price']
+    success_url = reverse_lazy('createmenuitemview')
