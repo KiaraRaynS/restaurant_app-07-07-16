@@ -28,17 +28,32 @@
   <!-- If Cook -->
   {% if worker.workertype == 'cook' %}
     {% for order in orders %}
-    <div class="panel panel-primary">
-      <div class="panel-body">
-        <h3><strong>{{order.orderitem}}</strong></h3>
-      </div>
-      <div class="panel-footer">
-        <i>{{order.orderdate}}</i>
-        <b><p>*{{order.notes}}</p></b>
-        <!-- Needs to be wired up so pressing will set foodstatus=True -->
-        <a class='btn btn-primary btn-lg' href='{% url 'confirmorderdoneview' order.id %}'>Order Finished</a>
-      </div>
-    </div>
+      <!-- If Order needs revisions -->
+      {% if order.revisionstatus == True %}
+        <div class="panel panel-primary">
+          <div class="panel-body">
+            <h3><strong>{{order.orderitem}} <span class='label label-warning'>Revisions Needed</span></strong></h3>
+          </div>
+          <div class="panel-footer">
+            <i>{{order.orderdate}}</i>
+            <b><p>*{{order.notes}}</p></b>
+            <a class='btn btn-primary btn-lg' href=''>Order Fixed</a>
+          </div>
+          </div>
+        {% endif %}
+      <!-- If Order not cooked yet -->
+      {% if order.foodstatus == False %}
+        <div class="panel panel-primary">
+          <div class="panel-body">
+            <h3><strong>{{order.orderitem}}</strong></h3>
+          </div>
+          <div class="panel-footer">
+            <i>{{order.orderdate}}</i>
+            <b><p>*{{order.notes}}</p></b>
+            <a class='btn btn-primary btn-lg' href='{% url 'confirmorderdoneview' order.id %}'>Order Finished</a>
+          </div>
+        </div>
+      {% endif %}
     {% endfor %}
   {% endif %}
 

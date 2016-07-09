@@ -28,7 +28,7 @@ class IndexView(TemplateView):
             if worker.workertype == 'cook':
                 context = {
                         'worker': worker,
-                        'orders': Order.objects.filter(foodstatus=False).order_by('orderdate'),
+                        'orders': Order.objects.order_by('orderdate'),
                         }
                 return context
             # If the user is a server
