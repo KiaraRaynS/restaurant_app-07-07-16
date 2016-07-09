@@ -155,6 +155,15 @@ class OrderUpdateView(UpdateView):
         return super(OrderUpdateView, self).form_valid(form)
 
 
+class OrderDeleteView(DeleteView):
+    model = Order
+    success_url = '/'
+
+    def get_object(self):
+        ordernumber = self.kwargs['pk']
+        return Order.objects.get(id=ordernumber)
+
+
 # Cook Related Views
 class ConfirmOrderDoneView(UpdateView):
     model = Order
