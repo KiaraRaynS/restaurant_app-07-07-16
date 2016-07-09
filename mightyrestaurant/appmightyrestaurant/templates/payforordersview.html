@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block bodycontent %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title"><strong>{{table.partyname}}</strong></h3>
+            </div>
+              <div class="panel-body">
+                <!-- Show a list of orders for table -->
+                {% for order in orders %}
+                <b>{{ order.orderitem }}</b> | ${{order.orderitem.price}}
+                {% endfor %}
+                <hr>
+                <strong>Total: </strong> ${{total.orderitem__price__sum}}
+                <form type='' method="post">
+                  {% csrf_token %}
+                  <p><input class='btn btn-primary' type='submit' value='Confirm Payment'></p>
+                </form>
+                      </div>
+                    </div>
+{% endblock %}

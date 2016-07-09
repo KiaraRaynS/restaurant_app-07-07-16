@@ -35,7 +35,7 @@ class IndexView(TemplateView):
             if worker.workertype == 'server':
                 context = {
                         'worker': worker,
-                        'tables': CustomerTable.objects.all(),
+                        'tables': CustomerTable.objects.filter(paidstatus=False),
                         'orders': Order.objects.filter(server=worker).filter(paidstatus=False).order_by('orderdate'),
                         }
                 return context
@@ -162,6 +162,30 @@ class OrderDeleteView(DeleteView):
     def get_object(self):
         ordernumber = self.kwargs['pk']
         return Order.objects.get(id=ordernumber)
+
+
+class PayForOrderView(UpdateView):
+    model = CustomerTable
+    fields = ['paidstatus']
+    success_url = '/'
+    template_name = 'payforordersview.html'
+
+    def get_object(self):
+        tablenumber = self.kwargs['pk']
+        return CustomerTable.objects.get(id=tablenumber)
+
+    def get_context_data(self, **kwargs):
+        tablenumber = self.kwargs['pk']
+        context = {
+                'table': CustomerTable.objects.get(id=tablenumber),
+                'orders': Order.objects.filter(tableid=tablenumber),
+                'total': Order.objects.filter(tableid=tablenumber).aggregate(Sum('orderitem__price')),
+                }
+        return context
+
+    def form_valid(self, form):
+        form.instance.paidstatus = True
+        return super(PayForOrderView, self).form_valid(form)
 
 
 # Cook Related Views

@@ -36,6 +36,7 @@ class MenuItem(models.Model):
 
 class CustomerTable(models.Model):
     partyname = models.CharField(max_length=50)
+    paidstatus = models.BooleanField(default=False)
 
 
 class Order(models.Model):

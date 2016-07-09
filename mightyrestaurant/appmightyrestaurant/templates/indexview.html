@@ -88,7 +88,7 @@
           <p></p>
           {% endfor %}
               <!-- If all items are cooked-->
-              <a class='btn btn-primary' href="">Review Order and Pay</a>
+              <a class='btn btn-primary' href="{% url 'payfororderview' table.id %}">Review Order and Pay</a>
         </div>
       </div>
     {% endfor %}
