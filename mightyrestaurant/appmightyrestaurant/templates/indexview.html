@@ -33,9 +33,10 @@
         <h3><strong>{{order.orderitem}}</strong></h3>
       </div>
       <div class="panel-footer">
+        <i>{{order.orderdate}}</i>
         <b><p>*{{order.notes}}</p></b>
         <!-- Needs to be wired up so pressing will set foodstatus=True -->
-        <p><input class='btn btn-primary btn-lg' type='submit' value='Order Done'></p>
+        <a class='btn btn-primary btn-lg' href='{% url 'confirmorderdoneview' order.id %}'>Order Finished</a>
       </div>
     </div>
     {% endfor %}
@@ -54,12 +55,16 @@
           <b><p>Orders</p></b>
           {% for order in orders %}
           {% if order.tableid == table %}
-          {{order.orderitem}} |
+          {{order.orderitem}}[<i>{{order.orderdate}}</i>] |
+          <!-- Cooked status -->
             {% if order.foodstatus %}
-              <div class='label label-success'>Cooked</div>
-              <!-- When pressed will set orderstatus=False and add revision notes-->
-              <a class='btn btn-default' href="{% url 'orderupdateview' order.id %}">Revisions Needed</a>
-              <!-- Needs to be wired up so pressing it will set paidstatus=True -->
+              <div class='label label-success'>Cooked</div> |
+              <!-- Revisions -->
+              {% if order.revisionstatus %}
+                <span class='label label-warning'>Returned to cook for revisions</span>
+              {% else %}
+                <a class='btn btn-warning' href="{% url 'orderupdateview' order.id %}">Revisions Needed</a>
+              {% endif %}
             {% else %}
               <div class='label label-danger'>Not Cooked</div>
             {% endif %}

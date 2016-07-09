@@ -28,7 +28,7 @@ class IndexView(TemplateView):
             if worker.workertype == 'cook':
                 context = {
                         'worker': worker,
-                        'orders': Order.objects.filter(foodstatus=False),
+                        'orders': Order.objects.filter(foodstatus=False).order_by('orderdate'),
                         }
                 return context
             # If the user is a server
@@ -36,7 +36,7 @@ class IndexView(TemplateView):
                 context = {
                         'worker': worker,
                         'tables': CustomerTable.objects.all(),
-                        'orders': Order.objects.filter(server=worker).filter(paidstatus=False),
+                        'orders': Order.objects.filter(server=worker).filter(paidstatus=False).order_by('orderdate'),
                         }
                 return context
 
@@ -144,7 +144,28 @@ class OrderUpdateView(UpdateView):
     template_name = 'orderupdateneeded.html'
     model = Order
     fields = ['revision']
+    success_url = '/'
 
     def get_object(self):
-        order = self.kwargs['pk']
-        return order
+        ordernumber = self.kwargs['pk']
+        return Order.objects.get(id=ordernumber)
+
+    def form_valid(self, form):
+        form.instance.revisionstatus = True
+        return super(OrderUpdateView, self).form_valid(form)
+
+
+# Cook Related Views
+class ConfirmOrderDoneView(UpdateView):
+    model = Order
+    fields = ['foodstatus']
+    success_url = '/'
+    template_name = 'confirmorderdoneview.html'
+
+    def get_object(self):
+        ordernumber = self.kwargs['pk']
+        return Order.objects.get(id=ordernumber)
+
+    def form_valid(self, form):
+        form.instance.foodstatus = True
+        return super(ConfirmOrderDoneView, self).form_valid(form)

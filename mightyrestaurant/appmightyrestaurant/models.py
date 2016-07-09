@@ -47,6 +47,7 @@ class Order(models.Model):
     foodstatus = models.BooleanField(default=False)
     paidstatus = models.BooleanField(default=False)
     revisionstatus = models.BooleanField(default=False)
+    orderdate = models.DateTimeField(auto_now_add=True)
 
 
 @receiver(post_save, sender='auth.user')

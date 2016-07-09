@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block bodycontent %}
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Order number {{order.id}}: {{ order.orderitem}}</h3>
+  </div>
+  <div class="panel-body">
+    <form type='' method='post'>
+      {% csrf_token %}
+      <b><p>What needs to be changed?</p></b>
+      <p>{{ form.revision }}</p>
+      <input class='btn btn-default' type='submit' value='Send back for revisions'>
+    </form>
+  </div>
+</div>
+{% endblock %}

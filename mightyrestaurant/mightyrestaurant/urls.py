@@ -3,10 +3,12 @@ from django.contrib.auth.views import login, logout
 from django.contrib import admin
 from appmightyrestaurant.views import IndexView, RegisterView, ProfileView
 from appmightyrestaurant.views import UpdateMenuItemView
-# Owner related Views
+# Owner Views
 from appmightyrestaurant.views import CreateMenuItemView, DeleteMenuItemView, UpdateFoodTypeView, CreateFoodTypeView
-# Server Actions
+# Server Views
 from appmightyrestaurant.views import SeatCustomersView, TakeCustomerOrderView, TableOrdersView, OrderUpdateView
+# Cook Views
+from appmightyrestaurant.views import ConfirmOrderDoneView
 
 
 urlpatterns = [
@@ -27,5 +29,7 @@ urlpatterns = [
     url(r'^customertable/$', SeatCustomersView.as_view(), name='seatcustomersview'),
     url(r'^customertable/(?P<pk>\d+)/takeorder/$', TakeCustomerOrderView.as_view(), name='takecustomerorderview'),
     url(r'^customertable/(?P<pk>\d+)/$', TableOrdersView.as_view(), name='tableordersview'),
-    url(r'^order/(?P<pk>\d+)/revision/$', OrderUpdateView.as_view(), name='orderupdateview'),
+    url(r'^order/serverrevise/(?P<pk>\d+)/$', OrderUpdateView.as_view(), name='orderupdateview'),
+    # Cook options
+    url(r'^order/confirmcooked/(?P<pk>\d+)/$', ConfirmOrderDoneView.as_view(), name='confirmorderdoneview'),
 ]
