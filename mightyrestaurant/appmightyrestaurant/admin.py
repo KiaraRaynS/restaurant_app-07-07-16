@@ -23,5 +23,5 @@ admin.site.register(CustomerTable, CustomerTableAdmin)
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['tableid', 'customer', 'orderitem', 'foodstatus', 'paidstatus']
+    list_display = ['tableid', 'orderitem', 'foodstatus', 'paidstatus']
 admin.site.register(Order, OrderAdmin)

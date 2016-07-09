@@ -43,7 +43,7 @@
 
   <!-- If Server -->
   {% if worker.workertype == 'server' %}
-  <p><a class='btn btn-default' href="{% url 'seatcustomersview' %}">Seat Customers</a></p>
+  <p><a class='btn btn-default' href="{% url 'seatcustomersview' %}">New Table</a></p>
   <br>
     {% for table in tables %}
       <div class="panel panel-default">
@@ -54,11 +54,14 @@
           <b><p>Orders</p></b>
           {% for order in orders %}
           {% if order.tableid == table %}
-            <b>{{order.customer}}</b> | {{order.orderitem}} |
+          {{order.orderitem}} |
             {% if order.foodstatus %}
               <div class='label label-success'>Cooked</div>
               <!-- When pressed will set orderstatus=False and add revision notes-->
-              <p><input class='btn btn-default' type='submit' value='Revision needed'>
+              <form type='' method='post'>
+                {% csrf_token %}
+              <p><input class='btn btn-warning' type='submit' value='Revision needed'>
+              </form>
               <!-- Needs to be wired up so pressing it will set paidstatus=True -->
             {% else %}
               <div class='label label-danger'>Not Cooked</div>

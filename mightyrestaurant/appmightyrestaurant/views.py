@@ -40,6 +40,9 @@ class IndexView(TemplateView):
                         }
                 return context
 
+        def post(self, request, *args, **kwargs):
+            return updateview.as_view()(request)
+
 
 class RegisterView(CreateView):
     model = User
@@ -114,7 +117,7 @@ class SeatCustomersView(CreateView):
 
 class TakeCustomerOrderView(CreateView):
     model = Order
-    fields = ['customer', 'orderitem', 'notes']
+    fields = ['orderitem', 'notes']
     success_url = '/'
 
     def form_valid(self, form):
@@ -135,3 +138,7 @@ class TableOrdersView(TemplateView):
                 'total': Order.objects.filter(tableid=customertable).aggregate(Sum('orderitem__price')),
                 }
         return context
+
+
+class UpdateOrderView(UpdateView):
+    pass

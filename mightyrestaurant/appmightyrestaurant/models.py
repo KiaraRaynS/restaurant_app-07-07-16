@@ -40,12 +40,13 @@ class CustomerTable(models.Model):
 
 class Order(models.Model):
     tableid = models.ForeignKey(CustomerTable)
-    customer = models.CharField(max_length=50)
     orderitem = models.ForeignKey(MenuItem)
     notes = models.TextField(null=True, blank=True)
     server = models.ForeignKey(Worker)
+    revisions = models.TextField(null=True, blank=True)
     foodstatus = models.BooleanField(default=False)
     paidstatus = models.BooleanField(default=False)
+    revisionstatus = models.BooleanField(default=False)
 
 
 @receiver(post_save, sender='auth.user')
