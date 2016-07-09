@@ -43,7 +43,7 @@ class Order(models.Model):
     orderitem = models.ForeignKey(MenuItem)
     notes = models.TextField(null=True, blank=True)
     server = models.ForeignKey(Worker)
-    revisions = models.TextField(null=True, blank=True)
+    revision = models.TextField(null=True, blank=True)
     foodstatus = models.BooleanField(default=False)
     paidstatus = models.BooleanField(default=False)
     revisionstatus = models.BooleanField(default=False)

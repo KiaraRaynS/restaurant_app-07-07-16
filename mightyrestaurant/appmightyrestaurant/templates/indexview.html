@@ -58,16 +58,15 @@
             {% if order.foodstatus %}
               <div class='label label-success'>Cooked</div>
               <!-- When pressed will set orderstatus=False and add revision notes-->
-              <form type='' method='post'>
-                {% csrf_token %}
-              <p><input class='btn btn-warning' type='submit' value='Revision needed'>
-              </form>
+              <a class='btn btn-default' href="{% url 'orderupdateview' order.id %}">Revisions Needed</a>
               <!-- Needs to be wired up so pressing it will set paidstatus=True -->
             {% else %}
               <div class='label label-danger'>Not Cooked</div>
             {% endif %}
-          {% endif %}
           <br>
+          {% endif %}
+
+          <p></p>
           {% endfor %}
               <!-- If all items are cooked-->
               <p><input class='btn btn-primary' type='submit' value='Pay'></p>

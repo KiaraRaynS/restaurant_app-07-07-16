@@ -140,5 +140,11 @@ class TableOrdersView(TemplateView):
         return context
 
 
-class UpdateOrderView(UpdateView):
-    pass
+class OrderUpdateView(UpdateView):
+    template_name = 'orderupdateneeded.html'
+    model = Order
+    fields = ['revision']
+
+    def get_object(self):
+        order = self.kwargs['pk']
+        return order
