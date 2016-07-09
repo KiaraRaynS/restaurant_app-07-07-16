@@ -8,7 +8,7 @@ from appmightyrestaurant.views import CreateMenuItemView, DeleteMenuItemView, Up
 # Server Views
 from appmightyrestaurant.views import SeatCustomersView, TakeCustomerOrderView, TableOrdersView, OrderUpdateView
 # Cook Views
-from appmightyrestaurant.views import ConfirmOrderDoneView
+from appmightyrestaurant.views import ConfirmOrderDoneView, ConfirmOrderRevisionView
 
 
 urlpatterns = [
@@ -32,4 +32,5 @@ urlpatterns = [
     url(r'^order/serverrevise/(?P<pk>\d+)/$', OrderUpdateView.as_view(), name='orderupdateview'),
     # Cook options
     url(r'^order/confirmcooked/(?P<pk>\d+)/$', ConfirmOrderDoneView.as_view(), name='confirmorderdoneview'),
+    url(r'^order/confirmrevision/(?P<pk>\d+)/$', ConfirmOrderRevisionView.as_view(), name='confirmorderrevisionview'),
 ]

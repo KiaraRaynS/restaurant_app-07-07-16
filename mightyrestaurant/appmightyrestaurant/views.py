@@ -169,3 +169,18 @@ class ConfirmOrderDoneView(UpdateView):
     def form_valid(self, form):
         form.instance.foodstatus = True
         return super(ConfirmOrderDoneView, self).form_valid(form)
+
+
+class ConfirmOrderRevisionView(UpdateView):
+    model = Order
+    fields = ['revisionstatus']
+    success_url = '/'
+    template_name = 'confirmorderrevisionview.html'
+
+    def get_object(self):
+        ordernumber = self.kwargs['pk']
+        return Order.objects.get(id=ordernumber)
+
+    def form_falid(self, form):
+        form.instance.revisionstatus = False
+        return super(ConfirmOrderRevisionView, self).form_valud(form)

@@ -16,7 +16,6 @@
           {% if food.foodtype == item %}
             <h4><p>{{ food.title }}</p></h4>
             <a href="{% url 'updatemenuitemview' food.id %}" class='btn btn-success'>Update</a>
-            <!-- NEEDS TO BE WIRED -->
             <a href="{% url 'deletemenuitemview' food.id %}" class='btn btn-danger'>Delete</a>
           {% endif %}
           {% endfor %}
@@ -37,7 +36,7 @@
           <div class="panel-footer">
             <i>{{order.orderdate}}</i>
             <b><p>*{{order.notes}}</p></b>
-            <a class='btn btn-primary btn-lg' href=''>Order Fixed</a>
+            <a class='btn btn-primary btn-lg' href='{% url 'confirmorderrevisionview' order.id %}'>Order Fixed</a>
           </div>
           </div>
         {% endif %}
@@ -89,7 +88,7 @@
           <p></p>
           {% endfor %}
               <!-- If all items are cooked-->
-              <p><input class='btn btn-primary' type='submit' value='Pay'></p>
+              <a class='btn btn-primary' href="">Review Order and Pay</a>
         </div>
       </div>
     {% endfor %}
